@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stylez.css"/>
+<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="imgdivcontainer">
+	<div class="IMGDIV" id="rock">
+		<img src="rock.png" title="rock" alt="rock" class="choice"/><span class="hiddenWord display">ROCK</span>
+	</div>
+
+	<div class="IMGDIV" id="paper">
+		<img src="paper.png" title="paper" alt="paper" class="choice"/><span class="hiddenWord display">PAPER</span>
+		
+	</div>
+
+	<div class="IMGDIV" id="scissors">
+		<img src="scissors.png" title="scissors" alt="scissors" class="choice"/><span class="hiddenWord display">SCISSORS</span>
+	</div>
+	
+	
+</div>
+
+<div id="output"></div>
+
+<script>
+$(document).ready(function(){
+	var wins = 0;
+	var losses = 0;
+	
+	$('.IMGDIV').on("click", function(){
+		var yourPick = this.id;
+
+	//	console.log(yourPick);
+	
+		var randomNumber = (Math.random() * 3);
+		var computerPick = "";
+	//	console.log(randomNumber);
+		if(randomNumber <= 1){
+			computerPick = 'rock';
+		} else if(randomNumber > 1 && randomNumber <= 2){
+			computerPick = 'paper';
+		} else if (randomNumber > 2){
+			computerPick = 'scissors';
+		}
+			console.log(computerPick);
+		
+		//
+		var youWin= 0;
+
+		if(computerPick == 'rock' && yourPick == 'rock'){
+			youWin = -1;
+		} else if(computerPick == 'paper' && yourPick == 'paper'){
+			youWin = -1;
+		} else if(computerPick == 'scissors' && yourPick == 'scissors'){
+			youWin = -1;
+		} else if(computerPick == 'scissors' && yourPick == 'paper'){
+			youWin = 0;
+		} else if(computerPick == 'scissors' && yourPick == 'rock'){
+			youWin = 1;
+		} else if(computerPick == 'paper' && yourPick == 'rock'){ 
+			youWin = 0;
+		} else if(computerPick == 'paper' && yourPick == 'scissors'){ 
+			youWin = 1;
+		} else if(computerPick == 'rock' && yourPick == 'scissors'){ 
+			youWin = 0;	
+		} else if(computerPick == 'rock' && yourPick == 'paper'){ 
+			youWin = 1;
+		} else {
+			alert("Something went terribly wrong");
+		}
+			
+
+		console.log(youWin);
+			
+		if(youWin == 1) {
+			$("#output").html("<p>Computer chose " + computerPick.toUpperCase() + " and you chose " + yourPick.toUpperCase() + '.<p id="winlose">You win!</p>');	
+			wins++;
+		} else if (youWin == 0){
+			$("#output").html("<p>Computer chose " + computerPick.toUpperCase() + " and you chose " + yourPick.toUpperCase() + '.<p id="winlose">You lose!</p>');	
+			losses++;
+		} else if (youWin == -1){
+			$("#output").html("<p>Computer chose " + computerPick.toUpperCase() + " and you chose " + yourPick.toUpperCase() + ".<p id=\"winlose\">It's a tie.</p>");	
+		}
+		
+		$("#output").append('<p>'+  wins + ' wins </p>');
+		$("#output").append('<p>'+  losses + ' losses</p>');
+		$("#output").append('<p>Wins/losses ratio: ' + (wins/losses) + '</p>');	
+			
+	
+		
+	});
+
+
+});
+
+</script>
+</body>
+</html>
